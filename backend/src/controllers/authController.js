@@ -15,6 +15,9 @@ export const registerController=async (req,res)=>{
         const hashedPassword = await bcrypt.hash(password,10);
         const newUser=new User({name,password:hashedPassword,email,role});
         await newUser.save();
+        const payload = {email,role};
+        const token=jwt.sign(payload,jwt_key,{expiresIn:'1h'})
+        console.log(token)
         return res.status(201).json({message:'Registration success'})
     } catch (error) {
         return res.json({message:'User registration failed'})
@@ -35,7 +38,10 @@ export const loginController=async (req,res)=>{
         if(!isMatch){
             return res.status(400).json({message:'Login Invalid creds'})
         }
-        return res.status(200).json({message:'login success',user})
+        const jwt_key = process.env.JWT_SECRET;
+        const payload = {email:user.email,role:user.role};
+        const token = jwt.sign(payload,jwt_key,{expiresIn:'1h'})
+        return res.status(200).json({message:'login success',token})
     }catch(error){
         return res.status(500).json({message:'Login Server error'})
     }
