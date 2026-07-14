@@ -12,6 +12,7 @@
     display: flex;
     justify-content: space-between;
     gap: 20px;
+    list-style-type: none;
 }
 
 .nav_items{
@@ -20,7 +21,6 @@
 }
 
 .logout_btn{
-    height: 50px;
-    width: 50px;
+    
     border-radius: 50%;
 }
