@@ -7,10 +7,10 @@ router.get('/',getUsers);
 router.get('/admin',verifyToken, (req,res)=>{
     res.json({message:'Welcome Admin'})
 })
-router.get('/manager',verifyToken,(req,res)=>{
+router.get('/manager',(req,res)=>{
     res.json({message:'Welcome Manager'})
 })
-router.get('/user',verifyToken,(req,res)=>{
+router.get('/user',(req,res)=>{
     res.json({message:'Welcome User'})
 })
 
