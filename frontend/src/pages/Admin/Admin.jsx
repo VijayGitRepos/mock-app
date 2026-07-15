@@ -2,7 +2,7 @@ import React from 'react'
 
 const Admin = () => {
   return (
-    <div>Admin</div>
+    <div>Welcome to Admin Accessible page</div>
   )
 }
 

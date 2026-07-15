@@ -1,5 +1,6 @@
 import express from 'express'
 import dotenv from 'dotenv';
+import cors from 'cors'
 import connectDB from './src/config/db.js'
 import dns from "dns";
 import User from './src/models/user.model.js';
@@ -11,6 +12,7 @@ dns.setServers(['1.1.1.1', '8.8.8.8'])
 dotenv.config();
 
 const app = express();
+app.use(cors())
 const PORT = process.env.PORT
 app.use(express.json());
 

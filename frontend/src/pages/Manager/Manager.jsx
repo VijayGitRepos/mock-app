@@ -2,7 +2,7 @@ import React from 'react'
 
 const Manager = () => {
   return (
-    <div>Manager</div>
+    <div>Welcome to Manager Accessible Page</div>
   )
 }
 

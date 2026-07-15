@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
+import { useDispatch } from "react-redux";
 import './Login.css'
+import { login } from '../../slices/authSlice'
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
     const[email,setEmail]=useState('')
     const[password,setPassword]=useState('')
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     const emailChange=(e)=>{
         setEmail(e.target.value)
@@ -13,9 +18,13 @@ const Login = () => {
         setPassword(e.target.value)
     }
 
-    const submitHandler=(e)=>{
-        e.preventDefault()
-        alert(`The Creds are ${email}, ${password}`)
+    const submitHandler=async (e)=>{
+        e.preventDefault();
+        const data={email,password};
+        const result = await dispatch(login(data));
+        if(login.fulfilled.match(result)){
+            navigate('/user');
+        }
     }
 
   return (
