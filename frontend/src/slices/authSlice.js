@@ -9,12 +9,16 @@ const initialState = {
     error:null
 }
 
-export const login = createAsyncThunk('/login', async(userData)=>{
+export const login = createAsyncThunk('/login', async(userData,thunkAPI)=>{
     try {
-        return await loginUser(userData)
+        const serviceResponse = await loginUser(userData)
+        // console.log('Response from authService file',serviceResponse)
+        return serviceResponse;
     } catch (error) {
-        console.log('Error Login Auth slice',error);
-        return error;
+        // console.log('Error Login Auth slice',error);
+        return thunkAPI.rejectWithValue(
+            error.response.data.message || 'Login Failed'
+        );
     }
 })
 

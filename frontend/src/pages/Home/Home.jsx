@@ -9,24 +9,45 @@ const Home = () => {
 
   const[email,setEmail]=useState('')
   const[password,setPassword]=useState('')
+  const[error,setError]=useState('')
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const emailChange=(e)=>{
+      setError('')
       setEmail(e.target.value)
   }
   const passwordChange=(e)=>{
+      setError('')
       setPassword(e.target.value)
   }
 
-  const submitHandler=async (e)=>{
-      e.preventDefault();
-      const data={email,password};
-      const result = await dispatch(login(data));
-      if(login.fulfilled.match(result)){
-          navigate('/user');
-      }
-  }
+  const submitHandler = async (e) => {
+        e.preventDefault();
+
+    try {
+        if (!email || !password) {
+            setError('Please enter all credentials');
+            return;
+        }
+
+        const data = { email, password };
+        const result = await dispatch(login(data));
+        // console.log('Result in Home.jsx', result);
+
+        if (login.fulfilled.match(result)) {
+        navigate('/admin');
+        } 
+        else if (login.rejected.match(result)) {
+        const message = result.payload || result.error?.message || 'Login failed';
+        setError(message);
+        }
+        } catch (err) {
+            console.error('Unexpected error:', err);
+            setError('Something went wrong. Please try again.');
+        }
+    };
+
 
   return (
     <div className='home_wrapper'>
@@ -43,6 +64,7 @@ const Home = () => {
             </div>
             <div>
                 <button className='submit_btn' onClick={submitHandler}>Submit</button>
+                {error && <p className='error_section'>{error}</p> }
             </div>
         </form>
     </div>

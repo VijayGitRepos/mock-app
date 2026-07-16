@@ -5,8 +5,8 @@ import bcrypt from 'bcryptjs'
 export const registerController=async (req,res)=>{
     try {
         const{name,password,email,role}=req.body;
-        // console.log('User Inputs', name, password,email,role)
         const user = await User.findOne({email})
+        // console.log('User Inputs', name, password,email,role)
         const jwt_key = process.env.JWT_SECRET;
 
         if(user){
@@ -27,12 +27,10 @@ export const registerController=async (req,res)=>{
 export const loginController=async (req,res)=>{
     try{
         const{email,password}=req.body;
-        // console.log('Login Creds', email,password)
         const user = await User.findOne({email});
         if(!user){
             return res.status(400).json({message:'Login User does not exist. Please register'})
         }
-        // console.log('User Password',user.password)
         const isMatch = await bcrypt.compare(password,user.password);
         // console.log('isMatch',isMatch)
         if(!isMatch){

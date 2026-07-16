@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUsers } from '../controllers/userController.js';
+import { deleteUser, getUserById, getUsers, updateUser } from '../controllers/userController.js';
 import {verifyToken} from '../middlewares/authMiddleware.js'
 
 const router = express.Router();
@@ -10,9 +10,12 @@ router.get('/admin',verifyToken, (req,res)=>{
 router.get('/manager',verifyToken,(req,res)=>{
     res.json({message:'Welcome Manager'})
 })
-router.get('/user',verifyToken,(req,res)=>{
+router.get('/user-access',verifyToken,(req,res)=>{
     res.json({message:'Welcome User'})
 })
+router.get('/:id',getUserById)
+router.put('/:id',updateUser)
+router.delete('/:id',deleteUser)
 
 
 export default router
