@@ -7,6 +7,8 @@ import User from './src/models/user.model.js';
 import userRoutes from './src/routes/userRoutes.js'
 import authRoutes from './src/routes/authRoutes.js'
 import productRoutes from './src/routes/productRoutes.js'
+import fileRoutes from './src/routes/fileRoutes.js'
+import multer from 'multer';
 
 dns.setServers(['1.1.1.1', '8.8.8.8'])
 
@@ -26,6 +28,14 @@ app.get('/',(req,res)=>{
 app.use('/users', userRoutes);
 app.use('/auth',authRoutes);
 app.use('/products',productRoutes);
+app.use('/file',fileRoutes);
+
+app.use((err, req, res, next) => {
+    if (err instanceof multer.MulterError) {
+        return res.status(400).json({ error: `Multer Error: ${err.message}` });
+    }
+    res.status(400).json({ error: err.message });
+});
 
 app.listen(PORT,(req,res)=>{
     console.log('Backend App is running on port',PORT)
