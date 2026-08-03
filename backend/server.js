@@ -6,6 +6,7 @@ import dns from "dns";
 import User from './src/models/user.model.js';
 import userRoutes from './src/routes/userRoutes.js'
 import authRoutes from './src/routes/authRoutes.js'
+import productRoutes from './src/routes/productRoutes.js'
 
 dns.setServers(['1.1.1.1', '8.8.8.8'])
 
@@ -21,8 +22,10 @@ await connectDB()
 app.get('/',(req,res)=>{
   res.send("Server is Running successfully")
 })
+
 app.use('/users', userRoutes);
 app.use('/auth',authRoutes);
+app.use('/products',productRoutes);
 
 app.listen(PORT,(req,res)=>{
     console.log('Backend App is running on port',PORT)

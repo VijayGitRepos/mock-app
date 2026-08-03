@@ -7,9 +7,14 @@ export const verifyToken = (req,res,next)=>{
         if(!token){
             res.status(401).json({message:'No token. Access Denied'})
         }else{
-            const decode = jwt.verify(token,process.env.JWT_SECRET);
-            // console.log('Auth Token', decode);
-            next();
+            try {
+                const decode = jwt.verify(token,process.env.JWT_SECRET);
+                // console.log('Auth Token Expire message', decode);
+                next();
+            } catch (error) {
+                res.status(400).json({message:'Invalid Token',error})
+            }
+            
         }
     }else{
         res.status(400).json({message:'No token available. Access denied'})

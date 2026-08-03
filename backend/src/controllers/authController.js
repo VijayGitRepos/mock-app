@@ -17,7 +17,7 @@ export const registerController=async (req,res)=>{
         await newUser.save();
         const payload = {email,role};
         const token=jwt.sign(payload,jwt_key,{expiresIn:'1h'})
-        console.log(token)
+        // console.log(token)
         return res.status(201).json({message:'Registration success'})
     } catch (error) {
         return res.json({message:'User registration failed'})
