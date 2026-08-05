@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useDispatch } from "react-redux";
 import './Login.css'
 import { login } from '../../slices/authSlice'

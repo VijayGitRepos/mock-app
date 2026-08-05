@@ -9,6 +9,7 @@ import authRoutes from './src/routes/authRoutes.js'
 import productRoutes from './src/routes/productRoutes.js'
 import fileRoutes from './src/routes/fileRoutes.js'
 import multer from 'multer';
+import { globalErrorMiddleware } from './src/middlewares/globalErrorMiddleware.js';
 
 dns.setServers(['1.1.1.1', '8.8.8.8'])
 
@@ -36,6 +37,13 @@ app.use((err, req, res, next) => {
     }
     res.status(400).json({ error: err.message });
 });
+
+app.all('*any',(req,res,next)=>{
+    const err = new Error('Cant reach this route')
+    err.statusCode = 404;
+    next(err)
+})
+app.use(globalErrorMiddleware);
 
 app.listen(PORT,(req,res)=>{
     console.log('Backend App is running on port',PORT)

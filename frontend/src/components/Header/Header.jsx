@@ -1,7 +1,6 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import './Header.css'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {logOut} from '../../slices/authSlice'
 
