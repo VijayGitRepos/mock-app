@@ -1,0 +1,31 @@
+GraphQl commands
+
+query getTodos {
+  getTodos {
+    id
+    title
+  }
+}
+
+mutation {
+  addTodo(title: "Title newly added") {
+    id
+    title
+    completed
+  }
+}
+
+mutation {
+  updateTodo(_id: "6a78173e98fb3611176575fc", title: "Title Upsated here", completed: true) {
+    id
+    title
+    completed
+  }
+}
+
+mutation {
+  deleteTodo(_id: "6a78141c98fb3611176575fb") {
+    id
+    title
+  }
+}
