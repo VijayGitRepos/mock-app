@@ -15,8 +15,8 @@ import resolvers from './src/graphql/resolvers.js';
 import connectDB from './src/config/db.js';
 
 async function startServer() {
+  
   const app = express();
-
   app.use(cors());
   app.use(express.json()); 
   app.use(express.urlencoded({ extended: true }));
